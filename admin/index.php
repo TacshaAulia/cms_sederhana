@@ -1,12 +1,24 @@
 <?php
 session_start();
 require_once '../config/database.php';
+require_once 'check_remember.php';
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
+    // Try to login using remember me token
+    if (!checkRememberToken($conn)) {
+        header("Location: login.php");
+        exit();
+    }
 }
+
+// Get user data
+$user_id = $_SESSION['user_id'];
+$query = "SELECT * FROM users WHERE id = ?";
+$stmt = mysqli_prepare($conn, $query);
+mysqli_stmt_bind_param($stmt, "i", $user_id);
+mysqli_stmt_execute($stmt);
+$user = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
 ?>
 <!DOCTYPE html>
 <html lang="en">

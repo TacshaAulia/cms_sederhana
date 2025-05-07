@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (isset($_SESSION['user_id'])) {
+    header("Location: index.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +20,32 @@
   <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <style>
+    .login-page {
+      background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
+    }
+    .login-box {
+      margin-top: 0;
+      padding-top: 7rem;
+    }
+    .login-logo a {
+      color: #00bcd4;
+      text-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
+    }
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #00bcd4 0%, #0097a7 100%);
+      border: none;
+      box-shadow: 0 0 10px rgba(0, 188, 212, 0.3);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0097a7 0%, #006064 100%);
+      box-shadow: 0 0 15px rgba(0, 188, 212, 0.5);
+    }
+  </style>
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -23,6 +56,15 @@
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
+
+      <?php if (isset($_SESSION['error'])): ?>
+        <div class="alert alert-danger">
+          <?php 
+          echo $_SESSION['error'];
+          unset($_SESSION['error']);
+          ?>
+        </div>
+      <?php endif; ?>
 
       <form action="auth.php" method="post">
         <div class="input-group mb-3">
@@ -44,7 +86,7 @@
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">
-              <input type="checkbox" id="remember">
+              <input type="checkbox" id="remember" name="remember">
               <label for="remember">
                 Remember Me
               </label>
