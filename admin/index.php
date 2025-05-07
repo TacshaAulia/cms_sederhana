@@ -64,6 +64,40 @@ $user = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
       color: #00bcd4 !important;
       text-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
     }
+    .small-box {
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    .small-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    }
+    .user-panel {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 15px;
+    }
+    .user-panel .info {
+      color: #fff;
+    }
+    .user-panel .info a {
+      color: #00bcd4;
+      text-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
+    }
+    .main-header {
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .content-wrapper {
+      background: #f4f6f9;
+    }
+    .content-header {
+      padding: 20px 0.5rem;
+    }
+    .content-header h1 {
+      font-size: 1.8rem;
+      color: #1a237e;
+    }
   </style>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -79,14 +113,22 @@ $user = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="logout.php">
-          <i class="fas fa-sign-out-alt"></i> Logout
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="fas fa-user-circle"></i> <?php echo htmlspecialchars($user['username']); ?>
         </a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <a href="profile.php" class="dropdown-item">
+            <i class="fas fa-user mr-2"></i> Profile
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="logout.php" class="dropdown-item">
+            <i class="fas fa-sign-out-alt mr-2"></i> Logout
+          </a>
+        </div>
       </li>
     </ul>
   </nav>
-  <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -97,6 +139,17 @@ $user = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
 
     <!-- Sidebar -->
     <div class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <i class="fas fa-user-circle fa-2x text-light"></i>
+        </div>
+        <div class="info">
+          <a href="profile.php" class="d-block"><?php echo htmlspecialchars($user['username']); ?></a>
+          <small class="text-light"><?php echo ucfirst($user['role']); ?></small>
+        </div>
+      </div>
+
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
@@ -119,39 +172,53 @@ $user = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
             </a>
           </li>
           <li class="nav-item">
+            <a href="categories.php" class="nav-link">
+              <i class="nav-icon fas fa-tags"></i>
+              <p>Categories</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="users.php" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>Users</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="settings.php" class="nav-link">
+              <i class="nav-icon fas fa-cog"></i>
+              <p>Settings</p>
+            </a>
+          </li>
         </ul>
       </nav>
-      <!-- /.sidebar-menu -->
     </div>
-    <!-- /.sidebar -->
   </aside>
 
   <!-- Content Wrapper -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+    <!-- Content Header -->
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0">Dashboard</h1>
           </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+          </div>
         </div>
       </div>
     </div>
-    <!-- /.content-header -->
 
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
+        <!-- Info boxes -->
         <div class="row">
           <div class="col-lg-3 col-6">
-            <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
                 <?php
@@ -168,9 +235,7 @@ $user = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
               <a href="posts.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <!-- ./col -->
           <div class="col-lg-3 col-6">
-            <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
                 <?php
@@ -187,9 +252,7 @@ $user = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
               <a href="pages.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <!-- ./col -->
           <div class="col-lg-3 col-6">
-            <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
                 <?php
@@ -206,20 +269,106 @@ $user = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
               <a href="users.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <?php
+                $query = "SELECT COUNT(*) as total FROM categories";
+                $result = mysqli_query($conn, $query);
+                $categories = mysqli_fetch_assoc($result)['total'];
+                ?>
+                <h3><?php echo $categories; ?></h3>
+                <p>Categories</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-tags"></i>
+              </div>
+              <a href="categories.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
         </div>
-        <!-- /.row -->
+
+        <!-- Recent Activity -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Recent Posts</h3>
+              </div>
+              <div class="card-body p-0">
+                <ul class="products-list product-list-in-card pl-2 pr-2">
+                  <?php
+                  $query = "SELECT p.*, u.username FROM posts p 
+                           JOIN users u ON p.author_id = u.id 
+                           ORDER BY p.created_at DESC LIMIT 5";
+                  $result = mysqli_query($conn, $query);
+                  while ($post = mysqli_fetch_assoc($result)):
+                  ?>
+                  <li class="item">
+                    <div class="product-info">
+                      <a href="edit-post.php?id=<?php echo $post['id']; ?>" class="product-title">
+                        <?php echo htmlspecialchars($post['title']); ?>
+                        <span class="badge badge-<?php echo $post['status'] == 'published' ? 'success' : 'warning'; ?> float-right">
+                          <?php echo ucfirst($post['status']); ?>
+                        </span>
+                      </a>
+                      <span class="product-description">
+                        By <?php echo htmlspecialchars($post['username']); ?> on 
+                        <?php echo date('M d, Y', strtotime($post['created_at'])); ?>
+                      </span>
+                    </div>
+                  </li>
+                  <?php endwhile; ?>
+                </ul>
+              </div>
+              <div class="card-footer text-center">
+                <a href="posts.php" class="uppercase">View All Posts</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Recent Users</h3>
+              </div>
+              <div class="card-body p-0">
+                <ul class="products-list product-list-in-card pl-2 pr-2">
+                  <?php
+                  $query = "SELECT * FROM users ORDER BY created_at DESC LIMIT 5";
+                  $result = mysqli_query($conn, $query);
+                  while ($user = mysqli_fetch_assoc($result)):
+                  ?>
+                  <li class="item">
+                    <div class="product-info">
+                      <a href="edit-user.php?id=<?php echo $user['id']; ?>" class="product-title">
+                        <?php echo htmlspecialchars($user['username']); ?>
+                        <span class="badge badge-info float-right">
+                          <?php echo ucfirst($user['role']); ?>
+                        </span>
+                      </a>
+                      <span class="product-description">
+                        <?php echo htmlspecialchars($user['email']); ?>
+                      </span>
+                    </div>
+                  </li>
+                  <?php endwhile; ?>
+                </ul>
+              </div>
+              <div class="card-footer text-center">
+                <a href="users.php" class="uppercase">View All Users</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
 
   <footer class="main-footer">
     <strong>Copyright &copy; <?php echo date('Y'); ?> <a href="#">CMS Sederhana</a>.</strong>
     All rights reserved.
   </footer>
 </div>
-<!-- ./wrapper -->
 
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
