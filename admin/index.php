@@ -21,6 +21,38 @@ if (!isset($_SESSION['user_id'])) {
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <style>
+    .sidebar-dark-primary {
+      background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
+    }
+    .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active {
+      background: linear-gradient(135deg, #00bcd4 0%, #0097a7 100%);
+      box-shadow: 0 0 15px rgba(0, 188, 212, 0.5);
+    }
+    .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link:hover {
+      background: linear-gradient(135deg, #00bcd4 0%, #0097a7 100%);
+      box-shadow: 0 0 10px rgba(0, 188, 212, 0.3);
+    }
+    .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link {
+      border-radius: 5px;
+      margin: 2px 10px;
+      transition: all 0.3s ease;
+    }
+    .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link i {
+      color: #00bcd4;
+    }
+    .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link:hover i {
+      color: #fff;
+    }
+    .brand-link {
+      background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
+      border-bottom: 1px solid rgba(0, 188, 212, 0.2);
+    }
+    .brand-text {
+      color: #00bcd4 !important;
+      text-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
+    }
+  </style>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
