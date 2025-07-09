@@ -31,6 +31,14 @@ $router->addRoute('', 'HomeController', 'index');
 $router->addRoute('home', 'HomeController', 'index');
 $router->addRoute('home/about', 'HomeController', 'about');
 
+// Route untuk Article
+$router->addRoute('article', 'ArticleController', 'index');
+$router->addRoute('article/create', 'ArticleController', 'create');
+$router->addRoute('article/search', 'ArticleController', 'search');
+$router->addRouteWithParams('article/:id', 'ArticleController', 'show');
+$router->addRouteWithParams('article/:id/edit', 'ArticleController', 'edit');
+$router->addRouteWithParams('article/:id/delete', 'ArticleController', 'delete');
+
 // Route dengan parameter
 $router->addRouteWithParams('user/:id', 'UserController', 'show');
 $router->addRouteWithParams('post/:id/edit', 'PostController', 'edit');

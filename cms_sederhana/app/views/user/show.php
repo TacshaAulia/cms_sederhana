@@ -77,7 +77,7 @@
             letter-spacing: 3px;
         }
         
-        .message {
+        .user-info {
             background: linear-gradient(135deg, rgba(120, 219, 255, 0.1) 0%, rgba(120, 119, 198, 0.1) 100%);
             border: 1px solid rgba(120, 219, 255, 0.3);
             padding: 25px;
@@ -87,7 +87,7 @@
             overflow: hidden;
         }
         
-        .message::before {
+        .user-info::before {
             content: '';
             position: absolute;
             top: 0;
@@ -97,10 +97,21 @@
             background: linear-gradient(90deg, #78d3ff, #7877c6, #ff77c6);
         }
         
-        .message p {
+        .user-info p {
             font-size: 1.1em;
             line-height: 1.6;
             color: #e0e0e0;
+        }
+        
+        .user-id {
+            background: linear-gradient(135deg, #2196f3 0%, #21cbf3 100%);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            margin: 15px 0;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
         }
         
         .nav {
@@ -146,12 +157,8 @@
                 0 0 20px rgba(120, 211, 255, 0.2);
         }
         
-        .nav a[style*="background: #FF9800"] {
-            background: linear-gradient(135deg, #ff9800 0%, #ff5722 100%) !important;
-        }
-        
-        .nav a[style*="background: #2196F3"] {
-            background: linear-gradient(135deg, #2196f3 0%, #21cbf3 100%) !important;
+        .nav a.secondary {
+            background: linear-gradient(135deg, #2196f3 0%, #21cbf3 100%);
         }
     </style>
 </head>
@@ -159,22 +166,25 @@
     <div class="container">
         <h1><?= $title ?></h1>
         
-        <div class="message">
+        <div class="user-info">
             <p><?= $message ?></p>
+            <div class="user-id">
+                User ID: <?= $user_id ?>
+            </div>
         </div>
         
         <div class="nav">
             <a href="/">Home</a>
-            <a href="/home/about">About</a>
-            <a href="/article" style="background: #FF9800;">Daftar Artikel</a>
-            <a href="/user/123" style="background: #2196F3;">User Detail (ID: 123)</a>
+            <a href="/user" class="secondary">User List</a>
+            <a href="/user/create" class="secondary">Create User</a>
+            <a href="/user/<?= $user_id ?>/edit" class="secondary">Edit User</a>
         </div>
         
         <div style="margin-top: 40px; text-align: center; color: #78d3ff; font-size: 0.9em; opacity: 0.8;">
-            <p>🚀 Framework MVC Sederhana - Dibuat dengan PHP</p>
+            <p>🔮 Router dengan Parameter - Framework MVC Sederhana</p>
             <div style="margin-top: 10px; font-size: 0.8em; color: #7877c6;">
                 <span style="display: inline-block; margin: 0 5px;">⚡</span>
-                <span style="display: inline-block; margin: 0 5px;">🔮</span>
+                <span style="display: inline-block; margin: 0 5px;">🚀</span>
                 <span style="display: inline-block; margin: 0 5px;">⚡</span>
             </div>
         </div>
