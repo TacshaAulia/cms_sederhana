@@ -20,6 +20,20 @@ spl_autoload_register(function ($class) {
     }
 });
 
-// Jalankan aplikasi (Router sederhana)
-require_once SYSTEM_PATH . '/App.php';
-$app = new App(); 
+// Load Router
+require_once SYSTEM_PATH . '/Router.php';
+
+// Inisialisasi Router
+$router = new Router();
+
+// Definisikan routes
+$router->addRoute('', 'HomeController', 'index');
+$router->addRoute('home', 'HomeController', 'index');
+$router->addRoute('home/about', 'HomeController', 'about');
+
+// Route dengan parameter
+$router->addRouteWithParams('user/:id', 'UserController', 'show');
+$router->addRouteWithParams('post/:id/edit', 'PostController', 'edit');
+
+// Jalankan router
+$router->dispatch(); 
