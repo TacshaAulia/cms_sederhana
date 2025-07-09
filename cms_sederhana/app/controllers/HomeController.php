@@ -1,5 +1,5 @@
 <?php
-class HomeController extends Controller {
+class HomeController extends BaseController {
     public function index() {
         $data = [
             'title' => 'CMS Sederhana - Home',

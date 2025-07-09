@@ -59,7 +59,8 @@
         <div class="nav">
             <a href="/">Home</a>
             <a href="/home/about">About</a>
-            <a href="/admin">Admin</a>
+            <a href="/article" style="background: #FF9800;">Daftar Artikel</a>
+            <a href="/user/123" style="background: #2196F3;">User Detail (ID: 123)</a>
         </div>
         
         <div style="margin-top: 30px; text-align: center; color: #666;">
